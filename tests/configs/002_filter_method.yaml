@@ -1,0 +1,19 @@
+server:
+  bind: 127.0.0.1:8000
+
+rules:
+  - name: test 1
+    method: POST
+    action: redirect
+    redirect_to: test_post
+
+  - name: test 2
+    method: GET
+    action: redirect
+    redirect_to: test_get
+
+  - name: test 3
+    method: DELETE
+    action: redirect
+    redirect_to: test_delete
+

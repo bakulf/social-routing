@@ -1,0 +1,210 @@
+# Configuration file for the social router microservice
+server:
+  bind: 127.0.0.1:8000
+
+rules:
+  - name: well-known
+    path: .welll-known/<**any>
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: activity pub via content-type
+    headers:
+      - name: content-type
+        value: 'Content-Type: application/ld+json; profile="https://www.w3.org/ns/activitystreams'
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: activity pub inbox and outbox 1
+    path: actor/<**any>
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: activity pub inbox and outbox 2
+    path: input
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: activity pub inbox and outbox 3
+    path: users/<**any>
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: mastodon API 1
+    path: api/<**any>
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: mastodon API 2
+    path: health
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: nodeinfo
+    path: nodeinfo/<**any>
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: manifest
+    path: manifest
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: Mastodon admin
+    path: admin/<**any>
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: Mastodon auth via SSO
+    path: oauth/<**any>
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: Mastodon auth - to block
+    path: auth/<**any>
+    action: proxy # TODO
+    proxy_url: localhost:3000
+
+  - name: Elk index
+    path: /
+    action: redirect
+    redirect_to: /elk
+    redirect_status: 308
+
+  - name: Elk home
+    path: home
+    action: redirect
+    redirect_to: /elk/home
+    redirect_status: 308
+
+  - name: Elk settings
+    path: settings/<**any>
+    action: redirect
+    redirect_to: /elk/settings
+    redirect_status: 308
+
+  - name: Elk user profile
+    path: "@<user>"
+    action: redirect
+    redirect_to: /elk/mozilla.social/@<user>
+    redirect_status: 308
+
+  - name: Elk user with replies
+    path: "@<user>/<what>"
+    action: redirect
+    redirect_to: /elk/mozilla.social/@<user>/<what>
+    redirect_status: 308
+
+  - name: Elk explore
+    path: explore
+    action: redirect
+    redirect_to: /elk/mozilla.social/explore
+    redirect_status: 308
+
+  - name: Elk notifications
+    path: notifications
+    action: redirect
+    redirect_to: /elk/mozilla.social/notifications
+    redirect_status: 308
+
+  - name: Elk publish
+    path: publish
+    action: redirect
+    redirect_to: /elk/compose
+    redirect_status: 308
+
+  - name: Elk favourites
+    path: favourites
+    action: redirect
+    redirect_to: /elk/favourites
+    redirect_status: 308
+
+  - name: Elk bookmarks
+    path: bookmarks
+    action: redirect
+    redirect_to: /elk/bookmarks
+    redirect_status: 308
+
+  - name: Elk conversations
+    path: conversations
+    action: redirect
+    redirect_to: /elk/conversations
+    redirect_status: 308
+
+  - name: Elk local
+    path: local
+    action: redirect
+    redirect_to: /elk/mozilla.social/local
+    redirect_status: 308
+
+  - name: Elk public
+    path: public
+    action: redirect
+    redirect_to: /elk/mozilla.social/public
+    redirect_status: 308
+
+  - name: Elk public + local
+    path: public
+    action: redirect
+    redirect_to: /elk/mozilla.social/public/local
+    redirect_status: 308
+
+  - name: Elk list
+    path: list
+    action: redirect
+    redirect_to: /elk/mozilla.social/list
+    redirect_status: 308
+
+  - name: Elk tags
+    path: tags/<tag>
+    action: redirect
+    redirect_to: /elk/mozilla.social/tags/<tag>
+    redirect_status: 308
+
+  - name: Elk followers
+    path: "@<user>/followers"
+    action: redirect
+    redirect_to: /elk/mozilla.social/@<user>/followers
+    redirect_status: 308
+
+  - name: Elk following
+    path: "@<user>/following"
+    action: redirect
+    redirect_to: /elk/mozilla.social/@<user>/following
+    redirect_status: 308
+
+  - name: Elk search
+    path: search
+    action: redirect
+    redirect_to: /elk/search
+    redirect_status: 308
+
+  - name: Mastodon user followers deprecated
+    path: users/@<user>/followers
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: Mastodon user following deprecated
+    path: users/@<user>/following
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: Mastodon user status deprecated
+    path: users/@<user>/statuses/<id>
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: Mastodon web deprecated
+    path: web
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: Mastodon about more deprecated
+    path: about/more
+    action: proxy
+    proxy_url: localhost:3000
+
+  - name: Elk
+    path: elk/<**>
+    action: proxy
+    proxy_url: localhost:5000

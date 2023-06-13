@@ -1,0 +1,20 @@
+[package]
+name = "social-routing"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-trait = "0.1.68"
+env_logger = "0.10.0"
+http = "0.2.9"
+hyper = {version = "0.14.26", features = ["server", "http1", "http2"] }
+salvo = { version = "0.37.9", features = ["logging"] }
+salvo_core = "0.44.1"
+serde = "1.0.164"
+serde_yaml = "0.9.21"
+thiserror = "1.0.40"
+tokio = { version = "1", features = ["macros"] }
+tracing = "0.1.37"
+tracing-subscriber = "0.3.17"
+url = "2.4.0"
+yaml-rust = "0.4.5"

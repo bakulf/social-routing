@@ -1,0 +1,31 @@
+server:
+  bind: 127.0.0.1:8000
+
+rules:
+  - name: full header with value
+    headers:
+     - name: 'content-type'
+       value: 'foo'
+    action: redirect
+    redirect_to: test1
+
+  - name: full header with another value
+    headers:
+     - name: 'content-type'
+       value: 'bar'
+    action: redirect
+    redirect_to: test2
+
+  - name: no value
+    headers:
+     - name: 'foobar'
+    action: redirect
+    redirect_to: test3
+
+  - name: multiple headers
+    headers:
+     - name: 'foo'
+     - name: 'bar'
+       value: 'abc'
+    action: redirect
+    redirect_to: test4
