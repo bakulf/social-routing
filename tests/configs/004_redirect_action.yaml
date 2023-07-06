@@ -1,0 +1,24 @@
+server:
+  bind: 127.0.0.1:8000
+
+rules:
+  - name: simple redirect with no params
+    path: test1
+    action: redirect
+    redirect_to: test
+
+  - name: simple params
+    path: test2/<a>/b/<c>
+    action: redirect
+    redirect_to: test2<a>b<c>
+
+  - name: simple params in query
+    path: test3/<a>/b/<c>
+    action: redirect
+    redirect_to: /test3?a=<a>&b=<c>
+
+  - name: another status code
+    path: test4
+    action: redirect
+    redirect_status: 308
+    redirect_to: /test4

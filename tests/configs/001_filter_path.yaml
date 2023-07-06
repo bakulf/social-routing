@@ -1,0 +1,18 @@
+server:
+  bind: 127.0.0.1:8000
+
+rules:
+  - name: test 1
+    path: test1
+    action: redirect
+    redirect_to: test1
+
+  - name: test 2
+    path: test2/with/path
+    action: redirect
+    redirect_to: test2
+
+  - name: test 3
+    path: test3/<arg1>/path/<arg2>
+    action: redirect
+    redirect_to: test3

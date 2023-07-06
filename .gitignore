@@ -1,0 +1,9 @@
+# Rust
+/target
+
+# Editor files
+*.code-workspace
+*.swp
+.vscode
+
+.DS_Store
