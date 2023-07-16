@@ -8,6 +8,7 @@ async-trait = "0.1.68"
 env_logger = "0.10.0"
 http = "0.2.9"
 hyper = {version = "0.14.26", features = ["server", "http1", "http2"] }
+regex = "1.9.1"
 salvo = { version = "0.37.9", features = ["logging"] }
 salvo_core = "0.44.1"
 serde = "1.0.164"

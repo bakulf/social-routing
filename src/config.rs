@@ -3,6 +3,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 use serde::Deserialize;
+use std::env;
+use regex::Regex;
+use regex::Captures;
+use std::borrow::Cow;
 
 #[derive(Deserialize, Debug)]
 pub struct Config {
@@ -45,6 +49,18 @@ impl Config {
         Config::create_from_filename(&filename.unwrap())
     }
 
+    // Expand environment variables from YAML
+    pub fn expand_var(raw_config: &str) -> Cow<str> {
+        let re = Regex::new(r"\$\{([a-zA-Z_][0-9a-zA-Z_]*)\}").unwrap();
+        re.replace_all(&raw_config, |caps: &Captures| {
+            match env::var(&caps[1]) {
+                Ok(val) => val,
+                Err(_) => (&caps[0]).to_string(),
+            }
+        })
+    }
+    
+
     pub fn create_from_filename(filename: &str) -> Config {
         let content = match std::fs::read_to_string(&filename) {
             Ok(c) => c,
@@ -53,7 +69,7 @@ impl Config {
                 std::process::exit(1);
             }
         };
-        let config: Config = match serde_yaml::from_str(&content) {
+        let config: Config = match serde_yaml::from_str(&Config::expand_var(&content)) {
             Ok(config) => config,
             Err(e) => {
                 tracing::error!(target: "Config", filename=filename, error = e.to_string(), "unable to load data");
