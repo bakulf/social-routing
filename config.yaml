@@ -1,17 +1,17 @@
 # Configuration file for the social router microservice
 server:
-  bind: 127.0.0.1:8000
+  bind: 127.0.0.1:8880
 
 rules:
   - name: well-known
-    path: .welll-known/<**any>
+    path: .well-known/<**any>
     action: proxy
     proxy_url: localhost:3000
 
   - name: activity pub via content-type
     headers:
       - name: content-type
-        value: 'Content-Type: application/ld+json; profile="https://www.w3.org/ns/activitystreams'
+        value: 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"'
     action: proxy
     proxy_url: localhost:3000
 
@@ -144,7 +144,7 @@ rules:
     redirect_status: 308
 
   - name: Elk public + local
-    path: public
+    path: public/local
     action: redirect
     redirect_to: /elk/mozilla.social/public/local
     redirect_status: 308
@@ -159,12 +159,6 @@ rules:
     path: tags/<tag>
     action: redirect
     redirect_to: /elk/mozilla.social/tags/<tag>
-    redirect_status: 308
-
-  - name: Elk followers
-    path: "@<user>/followers"
-    action: redirect
-    redirect_to: /elk/mozilla.social/@<user>/followers
     redirect_status: 308
 
   - name: Elk following
@@ -207,4 +201,4 @@ rules:
   - name: Elk
     path: elk/<**>
     action: proxy
-    proxy_url: localhost:5000
+    proxy_url: localhost:5314
